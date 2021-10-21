@@ -6,8 +6,9 @@ CREATE TABLE department (
     id INT PRIMARY KEY,
     name VARCHAR(30) NOT NULL
 );
---Below when I call the table "role" it makes it blue--
-CREATE TABLE role (
+--Below when I call the table "role" it makes it blue. Any other word comes out white. --
+--Does that make a difference?--
+CREATE TABLE position (
     id INT PRIMARY KEY,
     title VARCHAR(30)
     salary DECIMAL
