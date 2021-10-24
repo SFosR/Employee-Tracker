@@ -1,27 +1,88 @@
 const inquirer = require("inquirer");
 const mysql = require("mysql2");
+const { createQuery } = require("mysql2/typings/mysql/lib/Connection");
 require("dotenv").config();
 
-// Connect to database
-const db = mysql.createConnection({
+const mainMenu = () =>
+  inquirer
+    .prompt({
+      type: "list",
+      name: "likeToDo",
+      message: "What would you like to do?",
+      choices: [
+        "View all departments?",
+        "View all positions?",
+        "View all employees?",
+        "Add a department?",
+        "Add a position?",
+        "Add an employee?",
+        "Quit",
+      ],
+    })
+
+    .then((answer) => {
+      console.log("answer", answer);
+      switch (answer.choice) {
+        case "View all departments?":
+          viewAllDepartments();
+          break;
+        case "View all positions?":
+          viewAllPositions();
+        case "View all employees?":
+          viewAllEmployess();
+        case "Add a departments?":
+          addDept();
+        case "Add a position?":
+          addPosition();
+        case "Add an employee?":
+          addEmployee();
+        case "Quit":
+          connection.end();
+          break;
+      }
+    });
+
+//Connect to database
+const connection = mysql.createConnection({
   host: "localhost",
-  port: 3001, //do we just pick a number?
+  port: 3306,
   user: "root",
   password: process.env.PASSWORD,
-  database: "employess_db",
+  database: "employees_db",
 });
-// Function for starting options: viewing all depts, all postions, all employees and adding a dept, position, employee
 
-//const startQuestions() {}
+connection.connect((err) => {
+  if (err) throw err;
+  mainMenu();
+});
 
-//Function for viewing all depts that presents table showing dept names and dept ids
+//Function for viewing all departments
+const viewAllDepartments = () => {
+      const showDept = 
+      SELECT 
+            departments_id AS 'Dept ID',
+            department_name AS Department
+      FROM departments
 
-//Function for viewing all postions that presents job title, role id, dept that role is in and salary
+    db.query(showDept, (err, rows) => {
+      console.table(rows)
+      Infinity()
+    })
+  };    
 
-//Function for viewing all employees that presents a table showing employee ids, first names, last names, job titles, depts, salaries, and managers employee reports to
+//Function to view all employee positions
+
+
+
+
+//Table function for viewing all positions that presents job title, role id, dept that role is in and salary
+// SELECT * FROM db
+//Table function for viewing all employees that presents a table showing employee ids, first names, last names, job titles, depts, salaries, and managers employee reports to
 
 //Ability to add a dept by being prompted to enter dept name and is then added to db
 
 //Ability to add a position by being prompted to enter the name, salary and dept for the postion and its added to the db
 
-//Ability to add an employee
+//Ability to add an employee by being prompted to enter employee's first name, last name, postion, manager and that employee is added
+
+//Ability to update an employee role and info is up to date
