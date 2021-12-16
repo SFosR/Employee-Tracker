@@ -3,45 +3,6 @@ const mysql = require("mysql2");
 const { createQuery } = require("mysql2/typings/mysql/lib/Connection");
 require("dotenv").config();
 
-const mainMenu = () =>
-  inquirer
-    .prompt({
-      type: "list",
-      name: "likeToDo",
-      message: "What would you like to do?",
-      choices: [
-        "View all departments?",
-        "View all positions?",
-        "View all employees?",
-        "Add a department?",
-        "Add a position?",
-        "Add an employee?",
-        "Quit",
-      ],
-    })
-
-    .then((answer) => {
-      console.log("answer", answer);
-      switch (answer.choice) {
-        case "View all departments?":
-          viewAllDepartments();
-          break;
-        case "View all positions?":
-          viewAllPositions();
-        case "View all employees?":
-          viewAllEmployess();
-        case "Add a departments?":
-          addDept();
-        case "Add a position?":
-          addPosition();
-        case "Add an employee?":
-          addEmployee();
-        case "Quit":
-          connection.end();
-          break;
-      }
-    });
-
 //Connect to database
 const connection = mysql.createConnection({
   host: "localhost",
@@ -56,19 +17,66 @@ connection.connect((err) => {
   mainMenu();
 });
 
+const mainMenu = () =>
+  inquirer
+    .prompt([{
+      type: "list",
+      name: "likeToDo",
+      message: "What would you like to do?",
+      choices: [
+        "View all departments?",
+        "View all positions?",
+        "View all employees?",
+        "Add a department?",
+        "Add a position?",
+        "Add an employee?",
+        "Quit",
+        ]
+
+      }]).then((answer) => {
+        switch (answer.choice){
+
+        case "View all departments?":
+          viewAllDepartments();
+          break;
+  
+        case "View all positions?":
+          viewAllPositions();
+          break;
+
+        case "View all employees?":
+          viewAllEmployees();
+          break;
+
+        case "Add a department?":
+          addDepartment();
+          break;
+
+        case "Add a position?":
+          addPosition();
+          break;
+
+        case "Add an employee?":
+          addEmployee();
+          break;
+
+        case "Quit":
+          connection.end();
+          break;
+        }
+     })
+  };
+
 //Function for viewing all departments
 const viewAllDepartments = () => {
-      const showDept = 
-      SELECT 
-            departments_id AS 'Dept ID',
-            department_name AS Department
-      FROM departments
-
-    db.query(showDept, (err, rows) => {
-      console.table(rows)
-      Infinity()
-    })
-  };    
+     console.log("Viewing all departments");
+     connection.query("SELECT * FROM departments");
+        if (err) throw err;
+        console.table(res);
+        init();
+      })   
+  });  
+};
 
 //Function to view all employee positions
 
