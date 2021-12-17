@@ -3,7 +3,6 @@ const mysql = require("mysql2");
 const { createQuery } = require("mysql2/typings/mysql/lib/Connection");
 require("dotenv").config();
 
-//Connect to database
 const connection = mysql.createConnection({
   host: "localhost",
   port: 3306,
@@ -25,7 +24,7 @@ function mainMenu () {
       message: "What would you like to do?",
       choices: [
         "View all departments?",
-        "View all positions?",
+        "View all roles?",
         "View all employees?",
         "Add a department?",
         "Add a position?",
@@ -40,7 +39,7 @@ function mainMenu () {
           viewAllDepartments();
           break;
   
-        case "View all positions?":
+        case "View all roles?":
           viewAllPositions();
           break;
 
@@ -52,8 +51,8 @@ function mainMenu () {
           addDepartment();
           break;
 
-        case "Add a position?":
-          addPosition();
+        case "Add a role?":
+          addRole();
           break;
 
         case "Add an employee?":
@@ -67,7 +66,7 @@ function mainMenu () {
      })
   };
 
-//Function for viewing all departments
+
 function viewAllDepartments () {
      console.log("Viewing all departments");
      connection.query("SELECT * FROM departments");
@@ -77,18 +76,18 @@ function viewAllDepartments () {
       };   
   
 
-//Function to view all employee positions
+
 function viewAllEmployees () {
   console.log("Viewing all employees");
-  connection.query("SELECT * FROM employee");  //table in schema is employee
+  connection.query("SELECT * FROM employee");  
      if (err) throw err;
      console.table(res);
      init();
    }; 
 
-   function viewAllPositions () {
-    console.log("Viewing all positions");
-    connection.query("SELECT * FROM position");
+   function viewAllRoles () {
+    console.log("Viewing all roles");
+    connection.query("SELECT * FROM role");
        if (err) throw err;
        console.table(res);
        init();
@@ -96,14 +95,4 @@ function viewAllEmployees () {
 
 
 
-//Table function for viewing all positions that presents job title, role id, dept that role is in and salary
-// SELECT * FROM db
-//Table function for viewing all employees that presents a table showing employee ids, first names, last names, job titles, depts, salaries, and managers employee reports to
 
-//Ability to add a dept by being prompted to enter dept name and is then added to db
-
-//Ability to add a position by being prompted to enter the name, salary and dept for the postion and its added to the db
-
-//Ability to add an employee by being prompted to enter employee's first name, last name, postion, manager and that employee is added
-
-//Ability to update an employee role and info is up to date
