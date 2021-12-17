@@ -17,7 +17,7 @@ connection.connect((err) => {
   mainMenu();
 });
 
-const mainMenu = () =>
+function mainMenu () {
   inquirer
     .prompt([{
       type: "list",
@@ -68,18 +68,31 @@ const mainMenu = () =>
   };
 
 //Function for viewing all departments
-const viewAllDepartments = () => {
+function viewAllDepartments () {
      console.log("Viewing all departments");
      connection.query("SELECT * FROM departments");
         if (err) throw err;
         console.table(res);
         init();
-      })   
-  });  
-};
+      };   
+  
 
 //Function to view all employee positions
+function viewAllEmployees () {
+  console.log("Viewing all employees");
+  connection.query("SELECT * FROM employee");  //table in schema is employee
+     if (err) throw err;
+     console.table(res);
+     init();
+   }; 
 
+   function viewAllPositions () {
+    console.log("Viewing all positions");
+    connection.query("SELECT * FROM position");
+       if (err) throw err;
+       console.table(res);
+       init();
+     }; 
 
 
 

@@ -1,24 +1,27 @@
 DROP DATABASE IF EXISTS employees_db;
 CREATE DATABASE employees_db;
 
-USE employees_db
+USE employees_db;
 
 CREATE TABLE departments (
-    id INT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(30) NOT NULL
 );
---Below when I call the table "role" it makes it blue. Any other word comes out white. --
-CREATE TABLE position (
-    id INT PRIMARY KEY,
+
+CREATE TABLE role (
+    id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(30) NOT NULL,
     salary DECIMAL NOT NULL,
-    departments_id INT NOT NULL
+    departments_id INT NOT NULL,
+    FOREIGN KEY (departments_id) REFERENCES departments(id)
 );
 CREATE TABLE employee (
-    id INT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(30) NOT NULL,
     last_name VARCHAR(30) NOT NULL,
-    position_id INT NOT NULL,
-    manager_id INT NOT NULL
+    role_id INT NOT NULL,
+    manager_id INT,
+    FOREIGN KEY (role_id) REFERENCES role(id),
+    FOREIGN KEY (manager_id) REFERENCES employee(id) 
 );
 

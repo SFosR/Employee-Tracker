@@ -1,4 +1,6 @@
-INSERT INTO department (department_name)
+USE employees_db;
+
+INSERT INTO departments (name)
 VALUES ("Engineering"),
        ("Finance"),
        ("Sales"),
@@ -6,7 +8,7 @@ VALUES ("Engineering"),
        ("Legal");
       
 
-INSERT INTO position (title, salary, department_id)
+INSERT INTO role (title, salary, departments_id)
 VALUES 
        ("Senior Software Engineer", 200000, 1),
        ("Accountant", 100000, 2),
@@ -19,11 +21,11 @@ VALUES
        ("Legal Secretary", 85000, 5); 
         
 
-INSERT INTO employee (department_id, first_name, last_name, postion_id)
+INSERT INTO employee (first_name, last_name, role_id, manager_id)
 VALUES 
-        (1, "Sheri", "Foster", 1),
-        (2, "Carol", "Evanston" , 4),
-        (5, "Bill", "Smith", 2),
-        (3, "Laura", "Henderson", 3),
-        (5, "Rose", "McDonald", 6),
-        (4, "Thomas", "Forrest", 5);
+        ("Sheri", "Foster", 1, NULL),
+        ("Carol", "Evanston" , 4, 1),
+        ("Bill", "Smith", 2, NULL),
+        ("Laura", "Henderson", 3, 3),
+        ("Rose", "McDonald", 6, 1),
+        ("Thomas", "Forrest", 5, 3);
