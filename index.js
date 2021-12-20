@@ -102,6 +102,81 @@ function viewAllEmployees () {
        init();
      }; 
 
+const addDepartment = () => {
+  inquirer.prompt([{
+    type: 'input',
+    name: 'newDepartment',
+    message: 'What department would you like to add?',
+    confirm: newDepartment => {
+      if (newDepartment) {
+            return true;
+      } else {
+        console.log('Please enter a department')
+        return false;
+      }
+    }
+  }]).then((answer) => {
+        connection.query('INSERT INTO department (department_name) VALUES (?)', answer.department, (err, result) => {
+          if (err) throw err;
+          console.log(answer.newDepartment + ' has been successfully.');
+          mainMenu();
+        })
+  })
+},
+
+const addRole = () => {
+  inquirer.prompt([
+    {
+    type: 'input',
+    name: 'newRole',
+    message: 'What role would you like to add?',
+    confirm: newRole => {
+      if (newRole) {
+            return true;
+      } else {
+        console.log('Please enter a role')
+        return false;
+      }
+    }
+},
+{
+  type: 'number',
+  name: 'newSalary',
+  message: 'What is the salary for this role?',
+  confirm: newSalary => {
+      if (newSalary) {
+          return true;
+      } else {
+          console.log('Please enter salary')
+          return false;
+      }
+  }
+},
+{ type: 'number',
+  name: 'newDepartmentId',
+  message: 'What is the new department Id?',
+  confirm: new DepartmentId => {
+    if (newDepartmentId) {
+        return true;
+    } else {
+      console.log('Please enter a department ID')
+      return false;
+    }   
+  }
+}
+  ]).then((answer) => {
+    connection.query('INSERT INTO roles (title, salary, department_id) VALUES (?,?,?)', [answer.newRole, answer.newSalary, answer.newDepartmentId], (err, result) => {
+        if (err) throw err;
+        console.log(answer.newRole + ' has been added successfully.');
+    })
+  })
+}
+
+    
+
+
+
+
 
 
 
