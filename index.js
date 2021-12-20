@@ -1,4 +1,5 @@
 const inquirer = require("inquirer");
+const logo = require("asciiart-logo");
 const mysql = require("mysql2");
 const { createQuery } = require("mysql2/typings/mysql/lib/Connection");
 require("dotenv").config();
@@ -16,6 +17,13 @@ connection.connect((err) => {
   mainMenu();
 });
 
+function init() {
+  const logoText = logo({ name: "Employee Manager"}).render();
+  console.log(logoText);
+
+  loadmainMenu();
+}
+
 function mainMenu () {
   inquirer
     .prompt([{
@@ -27,8 +35,9 @@ function mainMenu () {
         "View all roles?",
         "View all employees?",
         "Add a department?",
-        "Add a position?",
+        "Add a role?",
         "Add an employee?",
+        "Update an employee role?",
         "Quit",
         ]
 
